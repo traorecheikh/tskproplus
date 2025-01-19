@@ -13,12 +13,12 @@ class UserController extends Controller
     {
         if($request->isMethod("POST")){
             $validated = $request->validate([
-                "email"=>"unique|email",
+                "email"=>"unique:App\Models\User|required|email",
                 "password"=>"min:4",
             ]);
             if(Auth::attempt(["email"=>$validated["email"], "password"=>$validated["password"],])){
                 Session::regenerate();
-                return redirect()->intended("/login");
+                return redirect()->intended("/");
             }
         }
         return view("auth.login");
@@ -28,7 +28,7 @@ class UserController extends Controller
     {
         if($request->isMethod("POST")){
             $Validated = $request->validate([
-               "email"=>"unique|email",
+               "email"=>"unique:App\Models\User|required|email",
                "password"=>"min:4",
                "fname"=>"min:2",
                "lname"=>"min:2"
@@ -37,5 +37,9 @@ class UserController extends Controller
             return redirect()->route("user.login")->with("succes","Inscription Reussie");
         }
         return view("auth.register");
+    }
+
+    public function home(){
+    return view('auth.home');
     }
 }
