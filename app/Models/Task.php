@@ -21,4 +21,12 @@ class Task extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    public function pendingTasks(){
+        $pendingTasks = Task::where('status',"pending")->get();
+    }
+
+
+
+
 }

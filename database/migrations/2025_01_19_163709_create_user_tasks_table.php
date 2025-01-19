@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tasks', function (Blueprint $table) {
+        Schema::create('user_tasks', function (Blueprint $table) {
             $table->id();
-            $table->string("title");
-            $table->string("description");
-            $table->enum("status",["pending","done","cancelled"])->default("pending");
-            $table->foreignId("project_id")->constrained("projects");
-            $table->foreignId("user_id");
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('task_id')->constrained('tasks');
             $table->timestamps();
         });
     }
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tasks');
+        Schema::dropIfExists('user_tasks');
     }
 };

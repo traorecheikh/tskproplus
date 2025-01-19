@@ -54,4 +54,8 @@ class User extends Authenticatable
     public function tasks(){
         return $this->hasMany(Task::class);
     }
-}
+
+    public function pendingTasks(){
+        return UserTask::where('user_id',$this->id)->where('status',"pending")->get();
+    }
+    }

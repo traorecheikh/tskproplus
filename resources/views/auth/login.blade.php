@@ -1,46 +1,52 @@
-<!DOCTYPE html>
-<html lang="fr">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page de Connexion</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEJxTDR4pOlSgmZ3vyaLfX7nkq6aYqrqzjD8W9XZGVYQ9l8Fkp0y5kDGl7ryu" crossorigin="anonymous">
-</head>
-
-<body>
-
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header bg-success text-white">
-                    <h4>Connexion</h4>
+@section('content')
+    <div class="auth-box">
+        <!-- Formulaire de Connexion -->
+        <div class="auth-header">
+            <h3 class="mb-0">Bon Retour</h3>
+            <p class="mb-0">Connectez-vous à votre compte</p>
+        </div>
+        <div class="auth-form">
+            <!-- Display Success Message -->
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
                 </div>
-                <div class="card-body">
-                    <form action="{{route("user.login")}}" method="POST">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Mot de passe</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <button type="submit" class="btn btn-success">Se connecter</button>
-                            <a href="/register" class="btn btn-link">Créer un compte</a>
-                        </div>
-                    </form>
+            @endif
+
+            <!-- Display Validation Errors -->
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
+            @endif
+
+            <form action="{{ route('user.login') }}" method="POST">
+                @csrf
+                <div class="mb-3">
+                    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="Adresse Email" value="{{ old('email') }}" required>
+                    @error('email')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-4">
+                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Mot de passe" required>
+                    @error('password')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary">Se Connecter</button>
+                </div>
+            </form>
+            <div class="auth-switch">
+                Pas encore de compte ? <a href="{{ route('user.register') }}">Inscrivez-vous maintenant</a>
             </div>
         </div>
     </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0+0vYYftqgDlXHnkVXrdi/gz5QhpF9ndQSOv8YYFgSZWAvpI" crossorigin="anonymous"></script>
-
-</body>
-
-</html>
+@endsection
