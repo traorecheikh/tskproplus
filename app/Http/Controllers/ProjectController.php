@@ -25,7 +25,7 @@ class ProjectController extends Controller
 
     public function update(Request $request)
     {
-        if($request->isMethod("POST")){
+        if($request->isMethod("PUT")){
             $validated = $request->validate([
                 "name"=>"unique:App\Models\Project|min:3",
                 "description"=>"min:10|required",
