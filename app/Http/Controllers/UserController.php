@@ -38,4 +38,9 @@ class UserController extends Controller
         }
         return view("auth.register");
     }
+
+    public function home()
+    {
+        return view("auth.home");
+    }
 }
