@@ -17,6 +17,6 @@ Route::delete("/project/destroy/{project}",[ProjectController::class,"destroy"])
 Route::delete("/Task/destroy/{task}",[TaskController::class,"destroy"])->name("task.destroy");
 Route::any("/task/index",[TaskController::class,"index"])->name("task.index");
 Route::any("/task/create",[TaskController::class,"create"])->name("task.create");
-Route::any("/task/update/{task}",[TaskController::class,"update"])->name("task.update");
+Route::any("/task/updatphpe/{task}",[TaskController::class,"update"])->name("task.update");
 Route::any("/task/show/{task}",[TaskController::class,"show"])->name("task.show");
 

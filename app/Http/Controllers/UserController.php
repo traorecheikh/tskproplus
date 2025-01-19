@@ -28,7 +28,7 @@ class UserController extends Controller
     {
         if($request->isMethod("POST")){
             $Validated = $request->validate([
-               "email"=>"unique|email",
+               "email"=>"unique:App\Models\User|email",
                "password"=>"min:4",
                "fname"=>"min:2",
                "lname"=>"min:2"
