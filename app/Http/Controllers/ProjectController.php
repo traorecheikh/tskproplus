@@ -23,7 +23,7 @@ class ProjectController extends Controller
         return view("project.create");
     }
 
-    public function u(Request $request)
+    public function update(Request $request)
     {
         if($request->isMethod("POST")){
             $validated = $request->validate([
@@ -33,10 +33,10 @@ class ProjectController extends Controller
                 "user_id"=>"required",
             ]);
 
-            Project::create($validated);
+            Project::update($validated);
             return redirect()->route("user.home");
         }
-        return view("project.create");
+        return view("project.update");
     }
 
     public function index()
